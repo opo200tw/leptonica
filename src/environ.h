@@ -115,16 +115,16 @@ typedef uintptr_t l_uintptr_t;
 #if !defined(HAVE_CONFIG_H) && !defined(ANDROID_BUILD) && !defined(OS_IOS)
 
   #if !defined(HAVE_LIBJPEG)
-  #define  HAVE_LIBJPEG       1
+  #define  HAVE_LIBJPEG       0
   #endif
   #if !defined(HAVE_LIBTIFF)
-  #define  HAVE_LIBTIFF       1
+  #define  HAVE_LIBTIFF       0
   #endif
   #if !defined(HAVE_LIBPNG)
-  #define  HAVE_LIBPNG        1
+  #define  HAVE_LIBPNG        0
   #endif
   #if !defined(HAVE_LIBZ)
-  #define  HAVE_LIBZ          1
+  #define  HAVE_LIBZ          0
   #endif
   #if !defined(HAVE_LIBGIF)
   #define  HAVE_LIBGIF        0
@@ -308,7 +308,7 @@ LEPT_DLL extern l_int32  LeptDebugOK;  /* default is 0 */
  *  is defined when the GCC compiler is invoked.
  *  All code should compile properly for both hardware architectures.
  */
-
+#define L_LITTLE_ENDIAN
 
 /*------------------------------------------------------------------------*
  *                    Simple search state variables                       *
@@ -373,10 +373,10 @@ typedef struct L_WallTimer  L_WALLTIMER;
   void *leptonica_realloc(void *ptr, size_t blocksize);
   void leptonica_free(void *ptr);
 #else
-  #define LEPT_MALLOC(blocksize)           malloc(blocksize)
-  #define LEPT_CALLOC(numelem, elemsize)   calloc(numelem, elemsize)
-  #define LEPT_REALLOC(ptr, blocksize)     realloc(ptr, blocksize)
-  #define LEPT_FREE(ptr)                   free(ptr)
+  #define LEPT_MALLOC(blocksize)           pvPortMalloc(blocksize)
+  #define LEPT_CALLOC(numelem, elemsize)   pvPortCalloc(numelem, elemsize)
+  #define LEPT_REALLOC(ptr, blocksize)     pvPortRealloc(ptr, blocksize)
+  #define LEPT_FREE(ptr)                   vPortFree(ptr)
 #endif   /* LEPTONICA_INTERCEPT_ALLOC */
 
 /*------------------------------------------------------------------------*
